@@ -7,7 +7,7 @@
   "description": "Trade stock, crypto, and options on your brokerage. Robinhood, ETrade, Webull, Charles Schwab, Coinbase, and Kraken supported.",
   "websiteUrl": "https://tradeit.app",
   "repository": {
-    "url": "https://github.com/Trade-It/trade-it-mcp",
+    "url": "https://github.com/trade-it-inc/trade-it-mcp",
     "source": "github"
   },
   "icons": [
