@@ -1,0 +1,34 @@
+name: Publish to MCP Registry
+
+on:
+  # Triggers when the server.json file is changed on the main branch
+  push:
+    branches:
+      - main
+    paths:
+      - 'server.json'
+  
+  # Allows for manual re-publishing from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Install mcp-publisher
+        run: |
+          curl -L "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz mcp-publisher
+
+      - name: Authenticate to MCP Registry
+        run: |
+          echo "${{ secrets.MCP_PRIVATE_KEY_B64 }}" | base64 --decode > key.pem
+          mcp-publisher login http --domain ${{ env.MCP_SERVER_DOMAIN }} --private-key-file key.pem
+
+      - name: Publish server to MCP Registry
+        run: ./mcp-publisher publish

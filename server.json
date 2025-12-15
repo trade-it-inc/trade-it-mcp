@@ -1,0 +1,28 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-10-17/server.schema.json",
+  "name": "app.tradeit/mcp",
+  "title": "Trade It",
+  "version": "1.0.0",
+  "status": "active",
+  "description": "Trade stock, crypto, and options on your brokerage. Robinhood, ETrade, Webull, Charles Schwab, Coinbase, and Kraken supported.",
+  "repository": {
+    "url": "https://github.com/Trade-Agent/trade-agent-mcp",
+    "source": "github"
+  },
+  "icons": [
+    { "src": "https://images.tradeit.app/site_logos/logo.png", "mimeType": "image/png", "theme": "light" },
+    { "src": "https://images.tradeit.app/site_logos/logo.svg", "mimeType": "image/svg+xml", "theme": "light" },
+    { "src": "https://images.tradeit.app/site_logos/logo_dark.png", "mimeType": "image/png", "theme": "dark" },
+    { "src": "https://images.tradeit.app/site_logos/logo_dark.svg", "mimeType": "image/svg+xml", "theme": "dark" }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.tradeit.app/mcp" 
+    },
+    {
+      "type": "sse",
+      "url": "https://mcp.tradeit.app/sse" 
+    }
+  ]
+}
