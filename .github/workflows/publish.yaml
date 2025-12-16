@@ -29,7 +29,8 @@ jobs:
       - name: Authenticate to MCP Registry
         run: |
           echo "${{ secrets.MCP_PUBLISH_KEY }}" | base64 --decode > key.pem
-          ./mcp-publisher login http --domain ${{ vars.MCP_SERVER_DOMAIN }} --private-key-file key.pem
+          PRIVATE_KEY_HEX=$(openssl pkey -in key.pem -text -noout | sed -n '/^priv:/,/^pub:/p' | grep -v "^priv:" | grep -v "^pub:" | tr -d ' :\n')
+          ./mcp-publisher login http --domain ${{ vars.MCP_SERVER_DOMAIN }} --private-key $PRIVATE_KEY_HEX
 
       - name: Publish server to MCP Registry
         run: ./mcp-publisher publish
