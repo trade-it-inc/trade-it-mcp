@@ -16,7 +16,19 @@ Now available through the [_Official MCP Registry_](https://registry.modelcontex
 
 The Trade It MCP Server brings stock, crypto, and options trading support to agents. It enables natural-language interaction with stock and crypto brokerages—execute trades, query portfolio performance, and surface market insights by sending plain-English requests through the MCP protocol.
 
-Supports Charles Schwab, Robinhood, E*TRADE, Webull, Coinbase, and Kraken. More to be added soon!
+**Brokerage Support:**
+- <img height="14" width="14" src="https://images.tradeit.app/brokerages/robinhood-logo.svg" alt="Robinhood Logo" /> **[Robinhood](https://robinhood.com)**
+- <img height="14" width="14" src="https://images.tradeit.app/brokerages/charles_schwab-logo.svg" alt="Charles Scwhab Logo" /> **[Charles Schwab](https://schwab.com)**
+- <img height="14" width="14" src="https://images.tradeit.app/brokerages/etrade-logo.svg" alt="ETrade Logo" /> **[E*Trade](https://etrade.com)**
+- <img height="14" width="14" src="https://images.tradeit.app/brokerages/webull-logo.svg" alt="Webull Logo" /> **[Webull](https://webull.com)**
+- <img height="14" width="14" src="https://images.tradeit.app/brokerages/public-logo.svg" alt="Public Logo" /> **[Public](https://public.com)**
+- <img height="14" width="14" src="https://images.tradeit.app/brokerages/tastytrade-logo.svg" alt="Tastytrade Logo" /> **[Tastytrade](https://tastytrade.com)**
+
+**Crypto Exchange Support:**
+- <img height="14" width="14" src="https://images.tradeit.app/brokerages/coinbase-logo.svg" alt="Coinbase Logo" /> **[Coinbase](https://coinbase.com)**
+- <img height="14" width="14" src="https://images.tradeit.app/brokerages/kraken-logo.svg" alt="Kraken Logo" /> **[Kraken](https://kraken.com)**
+
+More to be added soon!
 
 This server is **remote** so you don't need to run anything locally to connect. Just point your MCP-compatible agent platform to the URL above.
 
