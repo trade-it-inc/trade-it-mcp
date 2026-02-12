@@ -1,16 +1,12 @@
 # Trade It MCP Server
+
+## [👉 Full Documentation Here 👈](https://docs.tradeit.app)
 Now available through the [_Official MCP Registry_](https://registry.modelcontextprotocol.io/?q=app.tradeit%2Fmcp)
-
-<a href="https://glama.ai/mcp/servers/@trade-it-inc/trade-agent-mcp">
-  <img width="380" height="200" src="https://glama.ai/mcp/servers/@trade-it-inc/trade-agent-mcp/badge" />
-</a>
-
 
 
 **Endpoints:**  
 - Streamable HTTP: `https://mcp.tradeit.app/mcp` 
-- SSE: `https://mcp.tradeit.app/sse`  
-**Mode:** Remote-only (no local deployment required)
+- SSE: `https://mcp.tradeit.app/sse`
 
 ## Overview
 
