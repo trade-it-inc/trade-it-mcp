@@ -3,10 +3,6 @@
 ## [👉 Full Documentation Here 👈](https://docs.tradeit.app)
 Now available through the [_Official MCP Registry_](https://registry.modelcontextprotocol.io/?q=app.tradeit%2Fmcp)
 
-**Endpoints:**  
-- Streamable HTTP: `https://mcp.tradeit.app/mcp` 
-- SSE: `https://mcp.tradeit.app/sse`
-
 ## Table of contents
 
 - [Overview](#overview)
@@ -21,13 +17,17 @@ Now available through the [_Official MCP Registry_](https://registry.modelcontex
     - [OCC option symbol format](#occ-option-symbol-format)
     - [Options JSON examples](#options-json-examples)
   - [`execute_trade`](#execute_trade)
-  - [Trade status reference](#trade-status-reference)
-  - [Brokerage IDs (API helpers)](#brokerage-ids-api-helpers)
-  - [Disclaimers](#disclaimers)
+- [Trade status reference](#trade-status-reference)
+- [Brokerage IDs (API helpers)](#brokerage-ids-api-helpers)
+- [Disclaimers](#disclaimers)
 
 ## Overview
 
 The Trade It MCP Server brings stock, crypto, and options trading support to agents. It enables natural-language interaction with stock and crypto brokerages—execute trades, query portfolio performance, and surface market insights by sending plain-English requests through the MCP protocol.
+
+**Endpoints:**  
+- Streamable HTTP: `https://mcp.tradeit.app/mcp` 
+- SSE: `https://mcp.tradeit.app/sse`
 
 **Brokerage Support:**
 - <img height="14" width="14" src="https://images.tradeit.app/brokerages/robinhood-logo.svg" alt="Robinhood Logo" /> **[Robinhood](https://robinhood.com)**
