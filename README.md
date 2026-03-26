@@ -3,10 +3,27 @@
 ## [👉 Full Documentation Here 👈](https://docs.tradeit.app)
 Now available through the [_Official MCP Registry_](https://registry.modelcontextprotocol.io/?q=app.tradeit%2Fmcp)
 
-
 **Endpoints:**  
 - Streamable HTTP: `https://mcp.tradeit.app/mcp` 
 - SSE: `https://mcp.tradeit.app/sse`
+
+## Table of contents
+
+- [Overview](#overview)
+- [Getting started](#getting-started)
+- [Connecting](#connecting)
+- [Tools](#tools)
+  - [Safety model (draft-first)](#safety-model-draft-first)
+  - [`search_assets`](#search_assets)
+  - [`get_accounts`](#get_accounts)
+  - [`create_trade`](#create_trade)
+  - [`create_options_trade`](#create_options_trade)
+    - [OCC option symbol format](#occ-option-symbol-format)
+    - [Options JSON examples](#options-json-examples)
+  - [`execute_trade`](#execute_trade)
+  - [Trade status reference](#trade-status-reference)
+  - [Brokerage IDs (API helpers)](#brokerage-ids-api-helpers)
+  - [Disclaimers](#disclaimers)
 
 ## Overview
 
@@ -192,7 +209,7 @@ Sell 100 shares of Tesla, good till canceled:
 
 ---
 
-### `create_options_trade` (beta)
+### `create_options_trade`
 
 Create a **draft** single-leg or multi-leg options order (spreads, straddles, etc.).
 
