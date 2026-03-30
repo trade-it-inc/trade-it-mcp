@@ -47,6 +47,10 @@ This server is **remote** so you don't need to run anything locally to connect. 
 
 ---
 
+## Hosted deployment
+
+A hosted deployment is available on [Fronteir AI](https://fronteir.ai/mcp/trade-agent-trade-agent-mcp).
+
 ## Getting Started
 
 1. First, create an account at https://tradeit.app.
