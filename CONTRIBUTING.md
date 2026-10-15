@@ -8,6 +8,8 @@ Use current [ToolDefinitions](https://github.com/trade-it-inc/trade-it/blob/main
 
 Keep the skill entry point short and route tool-specific details to `references/tools.md`. Do not duplicate full parameter schemas, fixed brokerage-ID lists, prices, or plan matrices. Read supported brokerages from the current first-party docs/server metadata; the application derives them from its shared brokerage constants.
 
+The README's brokerage table displays the active list with logos. Refresh it from the application's generated brokerage guide, which derives from `Brokerages` in `lib/types/src/constants/brokerage.ts`; keep inactive brokerages out and include active paper-trading connections. Keep the skill linked to the current guide rather than copying this table into its instructions.
+
 Keep OAuth and user-created API keys documented. Preserve explicit approval for the exact order before a submitting call, account ownership boundaries, and the distinction between a submitted order and a fill. Do not place a trade or rotate credentials to check documentation.
 
 ## Plugin packaging

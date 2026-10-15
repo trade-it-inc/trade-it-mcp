@@ -22,6 +22,26 @@ Review brokerage accounts, holdings, and orders, look up assets, and review trad
 
 Building a product with our SDK or API? Use **[Trade It Developer](https://github.com/trade-it-inc/skills)**. Both offerings are available through the shared Trade It marketplace in Codex and Claude Code.
 
+## Supported brokerages
+
+<!-- Derived from the application brokerage constants through the generated brokerages guide. -->
+
+| Brokerage / exchange | Assets |
+| --- | --- |
+| <img src="https://images.tradeit.app/brokerages/charles_schwab-logo.svg" width="20" height="20" alt="" /> [Charles Schwab](https://schwab.com) | Stocks, options |
+| <img src="https://images.tradeit.app/brokerages/coinbase-logo.svg" width="20" height="20" alt="" /> [Coinbase](https://coinbase.com) | Crypto |
+| <img src="https://images.tradeit.app/brokerages/etrade-logo.svg" width="20" height="20" alt="" /> [ETrade](https://etrade.com) | Stocks, options |
+| <img src="https://images.tradeit.app/brokerages/kraken-logo.svg" width="20" height="20" alt="" /> [Kraken](https://kraken.com) | Crypto |
+| <img src="https://images.tradeit.app/brokerages/moomoo-logo.svg" width="20" height="20" alt="" /> [Moomoo](https://moomoo.com) | Stocks, options |
+| <img src="https://images.tradeit.app/brokerages/public-logo.svg" width="20" height="20" alt="" /> [Public](https://public.com) | Stocks, Crypto, options |
+| <img src="https://images.tradeit.app/brokerages/robinhood-logo.svg" width="20" height="20" alt="" /> [Robinhood](https://robinhood.com) | Stocks, options |
+| <img src="https://images.tradeit.app/brokerages/tastytrade-logo.svg" width="20" height="20" alt="" /> [Tastytrade](https://tastytrade.com) | Stocks, options |
+| <img src="https://images.tradeit.app/brokerages/tradestation-logo.svg" width="20" height="20" alt="" /> [TradeStation](https://tradestation.com) | Stocks, options |
+| <img src="https://images.tradeit.app/brokerages/tradestation_paper-logo.svg" width="20" height="20" alt="" /> [TradeStation Paper](https://tradestation.com) | Stocks, options |
+| <img src="https://images.tradeit.app/brokerages/webull-logo.svg" width="20" height="20" alt="" /> [Webull](https://webull.com) | Stocks, options |
+
+See the [brokerage guide](https://docs.tradeit.app/brokerages) for current availability, supported order types, and connection details. TradeStation Paper supports simulated trading.
+
 ## Install the plugin
 
 ### Codex
