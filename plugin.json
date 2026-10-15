@@ -1,0 +1,20 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "trade-it",
+  "version": "1.0.0",
+  "description": "Connect your AI assistant to your brokerage accounts to review holdings, track orders, and manage trades.",
+  "author": {
+    "name": "Trade It, Inc.",
+    "url": "https://tradeit.app"
+  },
+  "homepage": "https://docs.tradeit.app/mcp",
+  "repository": "https://github.com/trade-it-inc/trade-it-mcp",
+  "license": "CC0-1.0",
+  "keywords": [
+    "trade-it",
+    "brokerage",
+    "holdings",
+    "trading",
+    "mcp"
+  ]
+}

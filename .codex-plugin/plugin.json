@@ -1,0 +1,39 @@
+{
+  "name": "trade-it",
+  "version": "1.0.0",
+  "description": "Connect your AI assistant to your brokerage accounts to review holdings, track orders, and manage trades.",
+  "author": {
+    "name": "Trade It, Inc.",
+    "url": "https://tradeit.app"
+  },
+  "homepage": "https://docs.tradeit.app/mcp",
+  "repository": "https://github.com/trade-it-inc/trade-it-mcp",
+  "license": "CC0-1.0",
+  "keywords": [
+    "trade-it",
+    "brokerage",
+    "holdings",
+    "trading",
+    "mcp"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Trade It",
+    "shortDescription": "Your brokerage accounts in your AI assistant",
+    "longDescription": "Review connected accounts, holdings, and orders, look up assets, and review and explicitly approve trades through the Trade It MCP server. Available tools depend on your client and permissions.",
+    "developerName": "Trade It, Inc.",
+    "category": "Finance",
+    "websiteURL": "https://tradeit.app",
+    "privacyPolicyURL": "https://tradeit.app/privacy-policy",
+    "termsOfServiceURL": "https://tradeit.app/terms-of-service",
+    "defaultPrompt": [
+      "Show my brokerage accounts and holdings",
+      "Review my recent orders",
+      "Help me review a trade before I decide whether to place it"
+    ],
+    "brandColor": "#EC2029",
+    "composerIcon": "./skills/trade-it-mcp/assets/trade-it-symbol-light.svg",
+    "logo": "./skills/trade-it-mcp/assets/trade-it-wordmark-light.svg"
+  }
+}

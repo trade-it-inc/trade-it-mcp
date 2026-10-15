@@ -28,6 +28,13 @@ Desktop.ini
 
 # Secrets
 key.pem
+*.pem
+
+# Registry publisher artifacts
+mcp-publisher
+mcp-publisher.exe
+mcp-publisher*.tar.gz
+registry_*_checksums.txt
 
 # Logs
 *.log

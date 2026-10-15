@@ -1,396 +1,167 @@
-# Trade It MCP Server
+<p align="center">
+  <a href="https://tradeit.app">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="skills/trade-it-mcp/assets/trade-it-wordmark-dark.svg">
+      <source media="(prefers-color-scheme: light)" srcset="skills/trade-it-mcp/assets/trade-it-wordmark-light.svg">
+      <img src="skills/trade-it-mcp/assets/trade-it-wordmark-light.svg" alt="Trade It" width="260">
+    </picture>
+  </a>
+</p>
 
-## [👉 Full Documentation Here 👈](https://docs.tradeit.app)
-Now available through the [_Official MCP Registry_](https://registry.modelcontextprotocol.io/?q=app.tradeit%2Fmcp)
+<h1 align="center">Trade It</h1>
 
-## Table of contents
+<p align="center">Your brokerage accounts, connected to your AI assistant.</p>
+<p align="center">
+  <a href="https://docs.tradeit.app/mcp">Documentation</a> ·
+  <a href="https://docs.tradeit.app/installation">MCP setup</a> ·
+  <a href="https://docs.tradeit.app/brokerages">Supported brokerages</a> ·
+  <a href="https://github.com/trade-it-inc/skills">For developers</a>
+</p>
 
-- [Overview](#overview)
-- [Getting started](#getting-started)
-- [Connecting](#connecting)
-- [Tools](#tools)
-  - [Safety model (draft-first)](#safety-model-draft-first)
-  - [`search_assets`](#search_assets)
-  - [`get_accounts`](#get_accounts)
-  - [`create_trade`](#create_trade)
-  - [`create_options_trade`](#create_options_trade)
-    - [OCC option symbol format](#occ-option-symbol-format)
-    - [Options JSON examples](#options-json-examples)
-  - [`execute_trade`](#execute_trade)
-- [Trade status reference](#trade-status-reference)
-- [Brokerage IDs (API helpers)](#brokerage-ids-api-helpers)
-- [Disclaimers](#disclaimers)
+Review brokerage accounts, holdings, and orders, look up assets and option contracts, and review trades with your AI assistant. The **Trade It** plugin bundles a hosted MCP connection and a workflow skill. Available tools depend on your client and permissions.
 
-## Overview
+Building a product with our SDK or API? Use **[Trade It Developer](https://github.com/trade-it-inc/skills)**. Both offerings are available through the shared Trade It marketplace in Codex and Claude Code.
 
-The Trade It MCP Server brings stock, crypto, and options trading support to agents. It enables natural-language interaction with stock and crypto brokerages—execute trades, query portfolio performance, and surface market insights by sending plain-English requests through the MCP protocol.
+## Install the plugin
 
-**Endpoints:**  
-- Streamable HTTP: `https://mcp.tradeit.app/mcp` 
-- SSE: `https://mcp.tradeit.app/sse`
+### Codex
 
-**Brokerage Support:**
-- <img height="14" width="14" src="https://images.tradeit.app/brokerages/robinhood-logo.svg" alt="Robinhood Logo" /> **[Robinhood](https://robinhood.com)**
-- <img height="14" width="14" src="https://images.tradeit.app/brokerages/charles_schwab-logo.svg" alt="Charles Scwhab Logo" /> **[Charles Schwab](https://schwab.com)**
-- <img height="14" width="14" src="https://images.tradeit.app/brokerages/etrade-logo.svg" alt="ETrade Logo" /> **[E*Trade](https://etrade.com)**
-- <img height="14" width="14" src="https://images.tradeit.app/brokerages/webull-logo.svg" alt="Webull Logo" /> **[Webull](https://webull.com)**
-- <img height="14" width="14" src="https://images.tradeit.app/brokerages/public-logo.svg" alt="Public Logo" /> **[Public](https://public.com)**
-- <img height="14" width="14" src="https://images.tradeit.app/brokerages/tastytrade-logo.svg" alt="Tastytrade Logo" /> **[Tastytrade](https://tastytrade.com)**
+```bash
+codex plugin marketplace add trade-it-inc/skills
+codex plugin add trade-it@trade-it
+```
 
-**Crypto Exchange Support:**
-- <img height="14" width="14" src="https://images.tradeit.app/brokerages/coinbase-logo.svg" alt="Coinbase Logo" /> **[Coinbase](https://coinbase.com)**
-- <img height="14" width="14" src="https://images.tradeit.app/brokerages/kraken-logo.svg" alt="Kraken Logo" /> **[Kraken](https://kraken.com)**
+Start a new session and authenticate the Trade It MCP connection when prompted. Select Trade It through `/skills` or the `$` picker, or ask to see your accounts. [Codex plugin documentation](https://developers.openai.com/plugins/build/plugins)
 
-More to be added soon!
+### Claude Code
 
-This server is **remote** so you don't need to run anything locally to connect. Just point your MCP-compatible agent platform to the URL above.
+```text
+/plugin marketplace add trade-it-inc/skills
+/plugin install trade-it@trade-it
+```
 
----
+Start a new session and use `/mcp` to authenticate Trade It. Invoke `/trade-it:trade-it-mcp` or ask about your brokerage accounts. [Claude Code plugin documentation](https://code.claude.com/docs/en/discover-plugins)
 
-## Getting Started
+### Cursor
 
-1. First, create an account at https://tradeit.app.
-2. Sign up for the Pro plan's free trial.
-3. Connect your brokerage of choice.
+1. Open **Settings → Plugins**.
+2. Paste `https://github.com/trade-it-inc/trade-it-mcp` into the plugin search box.
+3. Install **Trade It**, then connect its MCP server and authenticate when prompted.
 
-## Connecting
-1. Connect your MCP client to `https://mcp.tradeit.app/mcp` or `https://mcp.tradeit.app/sse`.
-2. Authenticate through the browser-based OAuth flow.
-3. You're now ready to start trading!
+### VS Code / GitHub Copilot
 
----
+1. Enable **`chat.plugins.enabled`** in settings.
+2. Run **Chat: Install Plugin From Source** in the Command Palette.
+3. Enter `https://github.com/trade-it-inc/trade-it-mcp` and install **Trade It**.
+4. Start a new chat and authenticate the MCP connection when prompted.
+
+See the [VS Code plugin documentation](https://code.visualstudio.com/docs/agent-customization/agent-plugins).
+
+### Other assistants
+
+Add this remote server using your assistant's [MCP connection settings](https://docs.tradeit.app/installation):
+
+```text
+https://mcp.tradeit.app/mcp
+```
+
+Use **Streamable HTTP**. Trade It runs the server; no local server, Node.js, or React SDK is needed for a direct remote connection. The old HTTP+SSE transport is no longer supported. `/sse` is only a legacy URL alias for the current handler; it is not an SSE connection endpoint.
+
+If your assistant also supports standalone skills, you can optionally install the workflow guidance:
+
+```bash
+npx skills add trade-it-inc/trade-it-mcp --skill trade-it-mcp
+```
+
+This optional installer requires Node.js/npm. Run it from your project, or add `--global` for a personal installation. It installs instructions only; configure the MCP connection separately. Choose either the plugin or a standalone skill copy to avoid duplicate guidance.
+
+## Connect your account
+
+1. Authenticate through the browser-based OAuth flow when your assistant encounters an MCP/API `401`.
+2. Review and approve the requested access to your Trade It account.
+3. Connect a brokerage on [Trade It](https://tradeit.app) if you have not already.
+
+If your client supports bearer headers, you can instead use a [user-created API key](https://tradeit.app/account/api-keys). Keep keys in the client's credential settings. See [MCP authentication](https://docs.tradeit.app/mcp.html#authentication) and [API authentication](https://docs.tradeit.app/api.html#authentication).
+
+Installing the plugin and authorizing an account are separate steps. Your connections belong to your Trade It account. A personal MCP connection does not grant access to another user's accounts.
+
+## Try it
+
+- “Show my connected accounts and holdings.”
+- “What is the status of my recent orders?”
+- “Find SPY puts near 16 delta so I can review the available contracts.”
+- “Prepare an order for me to review before I decide whether to place it.”
+- “Create a shareable Trade Link.”
 
 ## Tools
 
-MCP tools connect your agent to linked brokerages: search symbols, list accounts, create **draft** orders, then execute only after confirmation.
-
-| MCP tool | What it does |
+| Tool | Purpose |
 | --- | --- |
-| `search_assets` | Look up a stock or crypto by ticker or name; returns price and metadata. |
-| `get_accounts` | List linked accounts and balances; also used when linking a new brokerage. |
-| `create_trade` | Create a **draft** equity/crypto buy or sell for review. |
-| `create_options_trade` | Create a **draft** single- or multi-leg options order for review. |
-| `execute_trade` | Submit a previously created draft to the broker **after** explicit user confirmation. |
+| `hello` | Introduce the server and its capabilities. |
+| `get_accounts` | Read linked accounts, balances, cash, and buying power. |
+| `get_holdings` | Read positions for a selected account. |
+| `get_trades` | Read order history and statuses with cursor pagination. |
+| `search_assets` | Look up stocks and crypto assets with price information. |
+| `get_option_chain` | Find option contracts by expiration, strike, type, and delta. |
+| `create_trade` | Prepare a stock or crypto order. |
+| `create_options_trade` | Prepare an order with concrete option or equity legs. |
+| `execute_trade` | Submit a reviewed draft after approval of that specific order. |
+| `cancel_trade` | Cancel a draft or request cancellation of a submitted order. |
+| `create_trade_link` | Create a shareable trade configuration for review on Trade It. |
 
-### Safety model (draft-first)
+The authenticated server's tool list and schemas are authoritative. Some clients offer account data and Trade Links without trading tools. See the [workflow notes](skills/trade-it-mcp/references/tools.md) and [full tool documentation](https://docs.tradeit.app/tools/).
 
-Trades start as `draft` orders and are **not** sent to the broker until the user clearly confirms.
+## Review before trading
 
-**Intended flow:**
+Prefer a draft that you can review before execution. Account auto-execution settings can cause creation itself to submit an order; approve the exact order before any call that could submit it. The skill does not change those settings.
 
-1. Call `create_trade` or `create_options_trade` → you get a draft with a `trade_id`.
-2. Show the user the full order details and how to proceed.
-3. Call `execute_trade` **only** when the user explicitly asks to execute, confirm, or place the trade.
-4. Do **not** call `execute_trade` automatically or immediately after creating a draft.
-
-After creating a draft, make sure the user knows they can place the order when ready (e.g. via your client’s Execute control, if available).
-
-**Optional steps before creating a draft:**
-
-- `search_assets` — confirm ticker and context.
-- `get_accounts` — pick the right `account_id` when the user cares which account to use.
-
-**Execution flow:**
-
-```
-User requests trade
-       ↓
-[Optional] search_assets — confirm ticker, get current price
-       ↓
-[Optional] get_accounts — identify correct account_id
-       ↓
-create_trade / create_options_trade → draft with trade_id, status: "draft"
-       ↓
-Show draft details; user confirms
-       ↓
-execute_trade(trade_id)
-       ↓
-Status: "placed" or "failed" (with details)
+```mermaid
+flowchart LR
+    A[Choose account and order] --> B[Create a draft]
+    B --> C[Review the order]
+    C --> D[Approve this order]
+    D --> E[Submit]
+    E --> F[Check returned status]
 ```
 
-**Account / order defaults:** If the user omits amount, account, or order type, Trade It applies their default amount, default account, and **market** orders where applicable. If **auto-execute** is enabled in Trade It settings, behavior may skip the manual execute step in some setups; when in doubt, still treat execution as user-confirmed.
+This diagram shows the draft workflow. An accepted order is not necessarily filled, and a cancellation request is not necessarily a completed cancellation. Check the returned status. Creating a Trade Link generates a URL; it does not place an order.
 
----
+## Updates and troubleshooting
 
-### `search_assets`
+Update or remove the plugin through your assistant's plugin manager. For standalone skills, use `npx skills update trade-it-mcp` or `npx skills remove trade-it-mcp` in the installation's project/global scope.
 
-Look up a stock or crypto by ticker or name.
-
-- **Parameter:** `query` (string) — e.g. `"TSLA"`, `"Tesla"`, `"bitcoin"`.
-- **Returns:** Price, ticker, exchange, asset type, and related metadata.
-
-**Example:**
-
-```json
-{ "query": "TSLA" }
-```
-
-**Natural-language examples:** *"How's Apple doing?"* · *"What's the price of TSLA?"*
-
----
-
-### `get_accounts`
-
-List all linked brokerage accounts (and use this flow when the user wants to connect a new brokerage).
-
-- **Parameters:** none.
-- **Returns:** Accounts with `id`, `name`, `brokerage`, `balance`, `available_cash`. Use `account.id` as `account_id` in trade calls when a specific account is required.
-
-**Natural-language example:** *"Show my accounts."*
-
----
-
-### `create_trade`
-
-Create a **draft** equity or crypto order.
-
-**Parameters:**
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `symbol` | string | Yes | Ticker, e.g. `"TSLA"`. |
-| `amount` | number | Yes | Size to trade. |
-| `unit` | `"dollars"` or `"shares"` | Yes | Unit for `amount`. |
-| `buy_or_sell` | `"buy"` or `"sell"` | Yes | Direction. |
-| `order_type` | `"market"`, `"limit"`, `"stop"`, `"stop_limit"` | No | Defaults to `"market"`. |
-| `limit_price` | number | If limit / stop_limit | Max or min price per share as applicable. |
-| `stop_price` | number | If stop / stop_limit | Stop trigger price. |
-| `time_in_force` | `"day"`, `"gtc"`, `"ioc"`, `"fok"` | No | Omit for brokerage default. |
-| `account_id` | number | No | Omit for default account. |
-
-**Order types:**
-
-| Type | Use when | Price fields |
-| --- | --- | --- |
-| `market` | Fill at current market | None |
-| `limit` | Only at `limit_price` or better | `limit_price` |
-| `stop` | Market order triggers at `stop_price` | `stop_price` |
-| `stop_limit` | Limit order triggers at `stop_price` | `stop_price` and `limit_price` |
-
-**JSON examples:**
-
-Buy $500 of Apple at market:
-
-```json
-{ "symbol": "AAPL", "amount": 500, "unit": "dollars", "buy_or_sell": "buy" }
-```
-
-Buy 10 shares of NVDA only if it drops to $800 or below:
-
-```json
-{ "symbol": "NVDA", "amount": 10, "unit": "shares", "buy_or_sell": "buy", "order_type": "limit", "limit_price": 800 }
-```
-
-Sell 5 shares of Meta if the price falls to $450 (stop):
-
-```json
-{ "symbol": "META", "amount": 5, "unit": "shares", "buy_or_sell": "sell", "order_type": "stop", "stop_price": 450 }
-```
-
-Buy 10 AAPL if it breaks above $200, paying at most $202/share:
-
-```json
-{ "symbol": "AAPL", "amount": 10, "unit": "shares", "buy_or_sell": "buy", "order_type": "stop_limit", "stop_price": 200, "limit_price": 202 }
-```
-
-Buy $1,000 of Bitcoin:
-
-```json
-{ "symbol": "BTC", "amount": 1000, "unit": "dollars", "buy_or_sell": "buy" }
-```
-
-Sell 100 shares of Tesla, good till canceled:
-
-```json
-{ "symbol": "TSLA", "amount": 100, "unit": "shares", "buy_or_sell": "sell", "time_in_force": "gtc" }
-```
-
-**Natural-language examples:** *"Buy $1000 of Tesla"* · *"Buy $1000 of Tesla only if the price drops to $150 or lower"* · *"Sell 10 shares of Apple if the price falls to $140"* · *"Buy a share of Apple if it hits $200"* · *"Buy 10 shares of Apple if it rises to $140, but don't pay more than $142"*
-
----
-
-### `create_options_trade`
-
-Create a **draft** single-leg or multi-leg options order (spreads, straddles, etc.).
-
-**Parameters:**
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `symbol` | string | Yes | Underlying ticker, e.g. `"SPY"`. |
-| `legs` | array | Yes | One or more legs (see below). |
-| `direction` | `"debit"` or `"credit"` | Multi-leg | `"debit"` = you pay; `"credit"` = you collect. |
-| `order_type` | `"market"`, `"limit"`, etc. | No | Defaults to `"market"`. |
-| `limit_price` | number | For limit | Net debit/credit limit for the package. |
-| `time_in_force` | `"day"` or `"gtc"` | No | Omit for default. |
-| `account_id` | number | No | Omit for default account. |
-
-**Each leg:**
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `type` | `"option"` or `"equity"` | Yes | Leg type. |
-| `action` | `"buy"` or `"sell"` | Yes | Side of the leg. |
-| `position_effect` | `"open"` or `"close"` | Options | Open a new position or close an existing one. |
-| `occ` | string or `null` | Options | OCC string (below); `null` for equity legs. |
-| `quantity` | number | Yes | Contracts (options) or shares (equity). |
-
-#### OCC option symbol format
-
-OCC strings follow: `YYMMDD` + `C` or `P` + 8-digit strike (strike × 1000, zero-padded).
-
-| Description | OCC |
+| Symptom | Next step |
 | --- | --- |
-| Jun 20, 2025 $250 call | `250620C00250000` |
-| Jun 20, 2025 $260 call | `250620C00260000` |
-| Mar 21, 2025 $500 put | `250321P00500000` |
-| Dec 19, 2025 $1,500 call | `251219C01500000` |
-| Jan 16, 2026 $50 put | `260116P00050000` |
+| Sign-in required or token expired | Complete OAuth again, or check the configured API key. |
+| Tool unavailable | Inspect the authenticated tool list and granted permissions. |
+| Old SSE connection fails | Switch to Streamable HTTP at `/mcp`. |
+| Balances or holdings appear stale | Check available timestamps; request refresh only when supported and eligible. |
+| Rate limited | Honor the returned retry/cooldown information. |
+| Order submission outcome is uncertain | Inspect recent orders before trying to submit again. |
 
-Strike encoding: multiply dollars by 1,000 and pad to 8 digits (e.g. $250 → `00250000`; $50.50 → `00050500`).
+Brokerage support, order capabilities, and plan eligibility change over time. Use [supported brokerages](https://docs.tradeit.app/brokerages), the current docs, and the connected server's responses instead of a copied brokerage-ID list.
 
-#### Options JSON examples
+## This repository
 
-**Single call** — buy 1 SPY $520 call exp Jun 20, 2025:
+This repository distributes connection metadata, plugin manifests, and user workflow guidance. The hosted server implementation lives in the [Trade It application repository](https://github.com/trade-it-inc/trade-it/tree/main/workers/mcp).
 
-```json
-{
-  "symbol": "SPY",
-  "legs": [
-    { "type": "option", "action": "buy", "position_effect": "open", "occ": "250620C00520000", "quantity": 1 }
-  ]
-}
-```
-
-**Bull call spread (debit)** — buy $250 call, sell $260 call, same expiry:
-
-```json
-{
-  "symbol": "TSLA",
-  "direction": "debit",
-  "legs": [
-    { "type": "option", "action": "buy", "position_effect": "open", "occ": "250620C00250000", "quantity": 1 },
-    { "type": "option", "action": "sell", "position_effect": "open", "occ": "250620C00260000", "quantity": 1 }
-  ]
-}
-```
-
-**Bear put spread (debit):**
-
-```json
-{
-  "symbol": "SPY",
-  "direction": "debit",
-  "legs": [
-    { "type": "option", "action": "buy", "position_effect": "open", "occ": "250620P00520000", "quantity": 1 },
-    { "type": "option", "action": "sell", "position_effect": "open", "occ": "250620P00510000", "quantity": 1 }
-  ]
-}
-```
-
-**Bull put spread (credit):**
-
-```json
-{
-  "symbol": "SPY",
-  "direction": "credit",
-  "legs": [
-    { "type": "option", "action": "sell", "position_effect": "open", "occ": "250620P00510000", "quantity": 1 },
-    { "type": "option", "action": "buy", "position_effect": "open", "occ": "250620P00500000", "quantity": 1 }
-  ]
-}
-```
-
-**Spread with limit** — net debit $3.50 or better:
-
-```json
-{
-  "symbol": "TSLA",
-  "direction": "debit",
-  "order_type": "limit",
-  "limit_price": 3.50,
-  "legs": [
-    { "type": "option", "action": "buy", "position_effect": "open", "occ": "250620C00250000", "quantity": 1 },
-    { "type": "option", "action": "sell", "position_effect": "open", "occ": "250620C00260000", "quantity": 1 }
-  ]
-}
-```
-
-**Close a long call** — sell to close 2 AAPL $200 calls exp Mar 21, 2025:
-
-```json
-{
-  "symbol": "AAPL",
-  "legs": [
-    { "type": "option", "action": "sell", "position_effect": "close", "occ": "250321C00200000", "quantity": 2 }
-  ]
-}
-```
-
-**Straddle** — long $250 call and $250 put, same expiry:
-
-```json
-{
-  "symbol": "TSLA",
-  "direction": "debit",
-  "legs": [
-    { "type": "option", "action": "buy", "position_effect": "open", "occ": "250620C00250000", "quantity": 1 },
-    { "type": "option", "action": "buy", "position_effect": "open", "occ": "250620P00250000", "quantity": 1 }
-  ]
-}
-```
-
-**Natural-language examples:** *"Buy 1 AAPL $300 call expiring next month"* · *"Covered call on MSFT at $500 strike"* · *"TSLA call spread: buy $475 / sell $485, next week"* · *"ATM straddle on SPY this Friday"* · *"2 AMZN puts, limit $3.50"* · *"Sell AMZN260130P00200000"*
-
----
-
-### `execute_trade`
-
-Send a **draft** to the brokerage after the user has reviewed it.
-
-- **Parameter:** `trade_id` (number) — the draft’s `id` from `create_trade` or `create_options_trade`.
-- **Returns:** Updated trade; status `"placed"` or `"failed"` (with error details).
-
-**Call only when** the user clearly confirms (e.g. execute, confirm, place it, go ahead). Confirm the trade that matches what they just reviewed.
-
-**Do not** call automatically right after creating a draft, without showing order details, or when status is not `"draft"`.
-
----
-
-### Trade status reference
-
-| Status | Meaning |
+| File | Purpose |
 | --- | --- |
-| `draft` | Created; not yet sent to broker |
-| `pending` | Submitted; awaiting broker ack |
-| `placed` | Accepted; awaiting fill |
-| `partially_filled` | Partially filled |
-| `complete` | Fully filled |
-| `canceled` | Canceled |
-| `failed` | Rejected — check errors |
-| `disconnected` | Brokerage connection issue |
+| `plugin.json` | Portable Agent Plugins manifest. |
+| `mcp.json` | Portable MCP connection using `streamable-http`. |
+| `.mcp.json` | Native compatibility connection using `http`. |
+| `.codex-plugin/`, `.claude-plugin/`, `.cursor-plugin/` | Assistant-specific manifests and presentation. |
+| `skills/trade-it-mcp/` | User workflow skill, references, and branding. |
+| `server.json` | Official MCP Registry metadata for `app.tradeit/mcp`. |
+| `glama.json` | Glama directory maintainer metadata. |
 
-### Brokerage IDs (API helpers)
+Portable and native MCP files describe the same connection; clients load their supported format. Plugin versions and registry metadata versions are independent. See [CONTRIBUTING.md](CONTRIBUTING.md) for maintenance and registry publishing, and the shared [plugin release instructions](https://github.com/trade-it-inc/skills/blob/main/RELEASING.md).
 
-| Brokerage | ID | Options |
-| --- | ---: | --- |
-| Robinhood | 1 | Yes |
-| E\*TRADE | 2 | Yes |
-| Coinbase | 3 | Crypto only |
-| Kraken | 5 | Crypto only |
-| Charles Schwab | 7 | Yes |
-| Webull | 8 | Yes |
-| Public | 11 | Yes |
-| Tastytrade | 12 | Yes |
+## Help
 
-**Clarification:** Ask once, with everything you need, when: order type is ambiguous (e.g. “buy TSLA at $200” — limit vs stop), options are missing expiry/strike, multiple accounts apply and none is chosen, or a symbol could mean more than one asset. Skip redundant questions when defaults are clear (default amount, market order, primary account).
+- Setup and usage: [Trade It documentation](https://docs.tradeit.app/mcp).
+- Account or connection support: [contact Trade It](https://tradeit.app/contact).
+- Incorrect instructions or package metadata: [open an issue](https://github.com/trade-it-inc/trade-it-mcp/issues) with sanitized details.
+- Vulnerabilities or exposed credentials: follow [SECURITY.md](SECURITY.md).
 
-### Disclaimers
-
-- Investing involves risk, including possible loss of principal.
-- Trade It is not a financial advisor and does not provide investment advice.
-- Options involve substantial risk and are not appropriate for all investors.
-- Trade It cannot withdraw funds, transfer assets, or take custody — it can only place trades through your linked brokerages.
-
----
-
+Repository content is available under [CC0-1.0](LICENSE). Trading involves risk. Trade It does not provide investment advice; review orders before approving them.

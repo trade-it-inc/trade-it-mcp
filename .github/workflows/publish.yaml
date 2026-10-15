@@ -1,36 +1,61 @@
 name: Publish to MCP Registry
 
 on:
-  # Triggers when the server.json file is changed on the main branch
   push:
     branches:
       - main
     paths:
       - 'server.json'
-  
-  # Allows for manual re-publishing from the Actions tab
   workflow_dispatch:
+
+concurrency:
+  group: mcp-registry-publish
+  cancel-in-progress: false
 
 jobs:
   publish:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
     permissions:
       contents: read
+    env:
+      MCP_PUBLISHER_VERSION: v1.8.1
+      MCP_PUBLISHER_SHA256: a06c9096dcb9727c13555b6be26c7effa707b01f06a4c561ba7a3635443cf2cc
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
 
       - name: Install mcp-publisher
+        shell: bash
         run: |
-          curl -L "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz mcp-publisher
-          chmod +x mcp-publisher
+          archive="$RUNNER_TEMP/mcp-publisher.tar.gz"
+          curl --fail --silent --show-error --location "https://github.com/modelcontextprotocol/registry/releases/download/$MCP_PUBLISHER_VERSION/mcp-publisher_linux_amd64.tar.gz" --output "$archive"
+          printf '%s  %s\n' "$MCP_PUBLISHER_SHA256" "$archive" | sha256sum --check
+          tar -xzf "$archive" -C "$RUNNER_TEMP" mcp-publisher
+          chmod +x "$RUNNER_TEMP/mcp-publisher"
+          printf '%s\n' "$RUNNER_TEMP" >> "$GITHUB_PATH"
+
+      - name: Validate registry metadata
+        run: mcp-publisher validate server.json
 
       - name: Authenticate to MCP Registry
+        shell: bash
+        env:
+          MCP_PUBLISH_KEY: ${{ secrets.MCP_PUBLISH_KEY }}
+          MCP_SERVER_DOMAIN: ${{ vars.MCP_SERVER_DOMAIN }}
         run: |
-          echo "${{ secrets.MCP_PUBLISH_KEY }}" | base64 --decode > key.pem
-          PRIVATE_KEY_HEX=$(openssl pkey -in key.pem -text -noout | sed -n '/^priv:/,/^pub:/p' | grep -v "^priv:" | grep -v "^pub:" | tr -d ' :\n')
-          ./mcp-publisher login http --domain ${{ vars.MCP_SERVER_DOMAIN }} --private-key $PRIVATE_KEY_HEX
+          : "${MCP_PUBLISH_KEY:?MCP_PUBLISH_KEY is required}"
+          : "${MCP_SERVER_DOMAIN:?MCP_SERVER_DOMAIN is required}"
+          umask 077
+          key_path="$(mktemp "$RUNNER_TEMP/mcp-registry-key.XXXXXX")"
+          trap 'rm -f "$key_path"' EXIT
+
+          printf '%s' "$MCP_PUBLISH_KEY" | base64 --decode > "$key_path"
+          private_key_hex="$(openssl pkey -in "$key_path" -text -noout | sed -n '/^priv:/,/^pub:/p' | sed '/^priv:/d; /^pub:/d' | tr -d ' :\n')"
+          [[ "$private_key_hex" =~ ^[[:xdigit:]]{64}$ ]]
+          printf '::add-mask::%s\n' "$private_key_hex"
+          mcp-publisher login http --domain "$MCP_SERVER_DOMAIN" --private-key "$private_key_hex"
 
       - name: Publish server to MCP Registry
-        run: ./mcp-publisher publish
+        run: mcp-publisher publish server.json
