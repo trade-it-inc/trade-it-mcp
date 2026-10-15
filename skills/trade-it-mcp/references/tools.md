@@ -20,26 +20,9 @@ Use the returned next cursor for another page when more results are needed. Do n
 
 MCP results may contain formatted text, structured content, or client-specific UI. Do not assume an SDK/REST response envelope or require an Execute button in clients that do not provide one.
 
-## Assets and option contracts
+## Asset lookup
 
 Use `search_assets` with a ticker or company/coin name, then verify the intended asset from its returned identity and price information. A quote is not a promised execution price.
-
-Use `get_option_chain` with `root_symbol`. Supported filters include `type`, `expiration_date_gte`, `expiration_date_lte`, `strike_price_gte`, `strike_price_lte`, `delta_gte`, and `delta_lte`, plus `greeks` and `limit`.
-
-For a request near 16 delta, filter by absolute decimal delta instead of downloading a broad chain and guessing:
-
-```json
-{
-  "root_symbol": "SPY",
-  "type": "put",
-  "greeks": true,
-  "delta_gte": 0.15,
-  "delta_lte": 0.17,
-  "limit": 10
-}
-```
-
-Select expiration dates from the user's request and current returned contracts. Keep queries bounded to the needed range. The current input schema has no page-token parameter; do not invent one from an output cursor or imply a limited result is the complete chain.
 
 ## Stock and crypto orders
 
@@ -60,7 +43,7 @@ Set the intended order type explicitly when prices matter. Distinguish share qua
 
 Use `create_options_trade` with the underlying `symbol` and concrete `legs`. Each leg specifies `type`, `action`, `quantity`, and `occ`; option legs also specify their open/close `position_effect`. Equity legs use `occ: null`.
 
-The tool's `occ` value excludes the root symbol: `YYMMDD`, `C` or `P`, then strike × 1000 padded to eight digits. Chain results can include the root; preserve the returned contract's expiration, type, and strike when converting to the tool's expected suffix. Do not reuse an expired example or construct a contract without verifying it exists.
+The tool's `occ` value excludes the root symbol: `YYMMDD`, `C` or `P`, then strike × 1000 padded to eight digits. Use the user's specified contract details and ask for missing expiration, type, or strike before preparing the order. Do not invent a contract or reuse an expired example.
 
 For a multi-leg order, use `direction` consistent with its intended cash flow: `debit` means paying, `credit` means receiving, and `even` means zero net. A bull call debit spread buys the lower-strike call and sells the higher-strike call at the same expiration. Review every leg, quantity, open/close effect, and the net limit before approval. Attached stock/crypto exit fields are not part of this tool's schema.
 

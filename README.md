@@ -18,7 +18,7 @@
   <a href="https://github.com/trade-it-inc/skills">For developers</a>
 </p>
 
-Review brokerage accounts, holdings, and orders, look up assets and option contracts, and review trades with your AI assistant. The **Trade It** plugin bundles a hosted MCP connection and a workflow skill. Available tools depend on your client and permissions.
+Review brokerage accounts, holdings, and orders, look up assets, and review trades with your AI assistant. The **Trade It** plugin bundles a hosted MCP connection and a workflow skill. Available tools depend on your client and permissions.
 
 Building a product with our SDK or API? Use **[Trade It Developer](https://github.com/trade-it-inc/skills)**. Both offerings are available through the shared Trade It marketplace in Codex and Claude Code.
 
@@ -89,7 +89,6 @@ Installing the plugin and authorizing an account are separate steps. Your connec
 
 - “Show my connected accounts and holdings.”
 - “What is the status of my recent orders?”
-- “Find SPY puts near 16 delta so I can review the available contracts.”
 - “Prepare an order for me to review before I decide whether to place it.”
 - “Create a shareable Trade Link.”
 
@@ -102,7 +101,6 @@ Installing the plugin and authorizing an account are separate steps. Your connec
 | `get_holdings` | Read positions for a selected account. |
 | `get_trades` | Read order history and statuses with cursor pagination. |
 | `search_assets` | Look up stocks and crypto assets with price information. |
-| `get_option_chain` | Find option contracts by expiration, strike, type, and delta. |
 | `create_trade` | Prepare a stock or crypto order. |
 | `create_options_trade` | Prepare an order with concrete option or equity legs. |
 | `execute_trade` | Submit a reviewed draft after approval of that specific order. |

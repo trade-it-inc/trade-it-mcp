@@ -11,7 +11,7 @@ Work with the user's own brokerage accounts through the existing Trade It MCP co
 
 The remote MCP endpoint is `https://mcp.tradeit.app/mcp`. Native plugin installation supplies the connection configuration; standalone skill installation supplies instructions only. Follow the client's connection flow and [installation guide](https://docs.tradeit.app/installation) when setup is needed.
 
-Use Streamable HTTP; the legacy HTTP+SSE transport is unsupported. Read [tool workflow notes](references/tools.md) when choosing contracts, preparing orders, paging results, or interpreting execution outcomes. Discover actual schemas before making calls.
+Use Streamable HTTP; the legacy HTTP+SSE transport is unsupported. Read [tool workflow notes](references/tools.md) when preparing orders, paging results, or interpreting execution outcomes. Discover actual schemas before making calls.
 
 - Authenticate through OAuth after an MCP/API `401`, following [MCP authentication](https://docs.tradeit.app/mcp.html#authentication).
 - If the client supports bearer headers, a [user-created API key](https://tradeit.app/account/api-keys) is another supported path; follow [API authentication](https://docs.tradeit.app/api.html#authentication). Store it in the client's credential settings, not in source files or prompts.
@@ -26,7 +26,6 @@ Use Streamable HTTP; the legacy HTTP+SSE transport is unsupported. Read [tool wo
 | Positions | `get_holdings` | Select the intended account and use the returned quantities and costs. |
 | Order history or status | `get_trades` | Follow returned pagination cursors when more results are needed. |
 | Asset lookup | `search_assets` | Resolve ambiguous symbols before using them in an order. |
-| Options contracts | `get_option_chain` | Use actual contracts; delta requests need absolute decimal bounds and `greeks: true`. |
 
 Use returned timestamps to explain data freshness; cached balances and quotes are not necessarily live. Request fresh data only when needed and supported, and respect returned cooldowns and plan restrictions. If an account is disconnected, use the provided connection action or direct the user to Trade It; do not ask for brokerage credentials in chat.
 
