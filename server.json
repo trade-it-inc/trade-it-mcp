@@ -3,7 +3,7 @@
   "name": "app.tradeit/mcp",
   "title": "Trade It",
   "version": "1.0.1",
-  "description": "Connect brokerage accounts to AI assistants: holdings, orders, asset lookup, and approved trading.",
+  "description": "Connect brokerage accounts to AI assistants: holdings, orders, and trading.",
   "websiteUrl": "https://tradeit.app",
   "repository": {
     "url": "https://github.com/trade-it-inc/trade-it-mcp",
@@ -11,12 +11,12 @@
   },
   "icons": [
     {
-      "src": "https://images.tradeit.app/site_logos/logo.png",
+      "src": "https://images.tradeit.app/site_logos/logo_icon.png",
       "mimeType": "image/png",
       "theme": "light"
     },
     {
-      "src": "https://images.tradeit.app/site_logos/logo.svg",
+      "src": "https://images.tradeit.app/site_logos/logo_icon.svg",
       "mimeType": "image/svg+xml",
       "theme": "light",
       "sizes": [
@@ -24,12 +24,12 @@
       ]
     },
     {
-      "src": "https://images.tradeit.app/site_logos/logo_dark.png",
+      "src": "https://images.tradeit.app/site_logos/logo_icon.png",
       "mimeType": "image/png",
       "theme": "dark"
     },
     {
-      "src": "https://images.tradeit.app/site_logos/logo_dark.svg",
+      "src": "https://images.tradeit.app/site_logos/logo_icon.svg",
       "mimeType": "image/svg+xml",
       "theme": "dark",
       "sizes": [

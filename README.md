@@ -1,10 +1,6 @@
 <p align="center">
   <a href="https://tradeit.app">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="skills/trade-it-mcp/assets/trade-it-wordmark-dark.svg">
-      <source media="(prefers-color-scheme: light)" srcset="skills/trade-it-mcp/assets/trade-it-wordmark-light.svg">
-      <img src="skills/trade-it-mcp/assets/trade-it-wordmark-light.svg" alt="Trade It" width="260">
-    </picture>
+    <img src="skills/trade-it-mcp/assets/wordmark_dark_bg.svg" alt="Trade It" width="260">
   </a>
 </p>
 
@@ -18,7 +14,7 @@
   <a href="https://github.com/trade-it-inc/skills">For developers</a>
 </p>
 
-Review brokerage accounts, holdings, and orders, look up assets, and review trades with your AI assistant. The **Trade It** plugin bundles a hosted MCP connection and a workflow skill. Available tools depend on your client and permissions.
+Review brokerage accounts, holdings, and orders, look up assets, and review stock, options, crypto, and futures trades with your AI assistant. The **Trade It** plugin bundles a hosted MCP connection and a workflow skill. Available tools depend on your client and permissions.
 
 Building a product with our SDK or API? Use **[Trade It Developer](https://github.com/trade-it-inc/skills)**. Both offerings are available through the shared Trade It marketplace in Codex and Claude Code.
 
@@ -35,9 +31,9 @@ Building a product with our SDK or API? Use **[Trade It Developer](https://githu
 | <img src="https://images.tradeit.app/brokerages/moomoo-logo.svg" width="20" height="20" alt="" /> [Moomoo](https://moomoo.com) | Stocks, options |
 | <img src="https://images.tradeit.app/brokerages/public-logo.svg" width="20" height="20" alt="" /> [Public](https://public.com) | Stocks, Crypto, options |
 | <img src="https://images.tradeit.app/brokerages/robinhood-logo.svg" width="20" height="20" alt="" /> [Robinhood](https://robinhood.com) | Stocks, options |
-| <img src="https://images.tradeit.app/brokerages/tastytrade-logo.svg" width="20" height="20" alt="" /> [Tastytrade](https://tastytrade.com) | Stocks, options |
-| <img src="https://images.tradeit.app/brokerages/tradestation-logo.svg" width="20" height="20" alt="" /> [TradeStation](https://tradestation.com) | Stocks, options |
-| <img src="https://images.tradeit.app/brokerages/tradestation_paper-logo.svg" width="20" height="20" alt="" /> [TradeStation Paper](https://tradestation.com) | Stocks, options |
+| <img src="https://images.tradeit.app/brokerages/tastytrade-logo.svg" width="20" height="20" alt="" /> [Tastytrade](https://tastytrade.com) | Stocks, options, futures |
+| <img src="https://images.tradeit.app/brokerages/tradestation-logo.svg" width="20" height="20" alt="" /> [TradeStation](https://tradestation.com) | Stocks, options, futures |
+| <img src="https://images.tradeit.app/brokerages/tradestation_paper-logo.svg" width="20" height="20" alt="" /> [TradeStation Paper](https://tradestation.com) | Stocks, options, futures |
 | <img src="https://images.tradeit.app/brokerages/webull-logo.svg" width="20" height="20" alt="" /> [Webull](https://webull.com) | Stocks, options |
 
 See the [brokerage guide](https://docs.tradeit.app/brokerages) for current availability, supported order types, and connection details. TradeStation Paper supports simulated trading.
@@ -111,6 +107,7 @@ Installing the plugin and authorizing an account are separate steps. Your connec
 - “What is the status of my recent orders?”
 - “Prepare an order for me to review before I decide whether to place it.”
 - “Create a shareable Trade Link.”
+- “Show /MES contracts and quotes, then prepare a buy of one contract in the active month for review.”
 
 ## Tools
 
@@ -120,8 +117,9 @@ Installing the plugin and authorizing an account are separate steps. Your connec
 | `get_accounts` | Read linked accounts, balances, cash, and buying power. |
 | `get_holdings` | Read positions for a selected account. |
 | `get_trades` | Read order history and statuses with cursor pagination. |
-| `search_assets` | Look up stocks and crypto assets with price information. |
-| `create_trade` | Prepare a stock or crypto order. |
+| `search_assets` | Look up stocks, crypto, and futures products; futures quotes come from contract lookup. |
+| `get_future_contracts` | Look up futures contract months, expirations, and quotes from an eligible connected account. |
+| `create_trade` | Prepare a stock, crypto, or outright futures order. |
 | `create_options_trade` | Prepare an order with concrete option or equity legs. |
 | `execute_trade` | Submit a reviewed draft after approval of that specific order. |
 | `cancel_trade` | Cancel a draft or request cancellation of a submitted order. |

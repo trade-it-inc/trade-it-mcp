@@ -2,7 +2,7 @@
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "trade-it",
   "version": "1.0.0",
-  "description": "Connect your AI assistant to your brokerage accounts to review holdings, track orders, and manage trades.",
+  "description": "Connect your AI assistant to your brokerage accounts to review holdings, track orders, and place trades.",
   "author": {
     "name": "Trade It, Inc.",
     "url": "https://tradeit.app"

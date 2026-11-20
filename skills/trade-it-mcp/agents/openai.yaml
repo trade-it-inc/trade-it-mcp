@@ -1,8 +1,8 @@
 interface:
   display_name: "Trade It"
   short_description: "Review brokerage accounts, holdings, and trades"
-  icon_small: "./assets/trade-it-symbol-light.svg"
-  icon_large: "./assets/trade-it-wordmark-light.svg"
+  icon_small: "./assets/logo_icon.svg"
+  icon_large: "./assets/wordmark_dark_bg.svg"
   brand_color: "#EC2029"
   default_prompt: "Use $trade-it-mcp to show my connected brokerage accounts and holdings."
 

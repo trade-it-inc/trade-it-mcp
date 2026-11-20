@@ -39,6 +39,12 @@ Shared optional order fields include `account_id`, `order_type`, `limit_price`, 
 
 Set the intended order type explicitly when prices matter. Distinguish share quantities from dollar amounts and use defaults supported by the actual tool, not presumed account preferences.
 
+## Futures orders
+
+Use `search_assets` for a slash-prefixed product root such as `/MES`. Search does not return a futures quote. Use `get_future_contracts` with the root `symbol` and an eligible `account_id` to obtain contract months, expirations, and quotes from the user's brokerage. Read current [brokerage coverage](https://docs.tradeit.app/brokerages) rather than assuming every account supports futures.
+
+Use `create_trade` with a whole positive `amount`, `unit: "contracts"`, and `buy_or_sell`. A root such as `/MES` selects the active month; a dated symbol such as `/MESZ26` selects December 2026. Use a returned contract and the user's intended month rather than copying a dated example. Confirm the account, month, side, quantity, order type, and prices before any potentially submitting call. Futures have a separate **Always Confirm Futures** setting; apply the same explicit approval workflow to futures auto-execution.
+
 ## Options orders
 
 Use `create_options_trade` with the underlying `symbol` and concrete `legs`. Each leg specifies `type`, `action`, `quantity`, and `occ`; option legs also specify their open/close `position_effect`. Equity legs use `occ: null`.

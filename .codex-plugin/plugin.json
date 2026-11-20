@@ -33,7 +33,7 @@
       "Help me review a trade before I decide whether to place it"
     ],
     "brandColor": "#EC2029",
-    "composerIcon": "./skills/trade-it-mcp/assets/trade-it-symbol-light.svg",
-    "logo": "./skills/trade-it-mcp/assets/trade-it-wordmark-light.svg"
+    "composerIcon": "./skills/trade-it-mcp/assets/logo_icon.svg",
+    "logo": "./skills/trade-it-mcp/assets/wordmark_dark_bg.svg"
   }
 }

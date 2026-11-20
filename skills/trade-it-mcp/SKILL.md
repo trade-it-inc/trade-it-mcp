@@ -26,6 +26,7 @@ Use Streamable HTTP; the legacy HTTP+SSE transport is unsupported. Read [tool wo
 | Positions | `get_holdings` | Select the intended account and use the returned quantities and costs. |
 | Order history or status | `get_trades` | Follow returned pagination cursors when more results are needed. |
 | Asset lookup | `search_assets` | Resolve ambiguous symbols before using them in an order. |
+| Futures contracts and quotes | `get_future_contracts` | Use a futures-capable account and review the selected delivery month. |
 
 Use returned timestamps to explain data freshness; cached balances and quotes are not necessarily live. Request fresh data only when needed and supported, and respect returned cooldowns and plan restrictions. If an account is disconnected, use the provided connection action or direct the user to Trade It; do not ask for brokerage credentials in chat.
 
@@ -33,7 +34,7 @@ Use returned timestamps to explain data freshness; cached balances and quotes ar
 
 Prefer a reviewable draft. Before creating an order, resolve material ambiguity in the account, asset, side, size/unit, order type, prices, and option legs. Use the tool's supported defaults only when they fit the user's request; ask about missing choices together.
 
-1. Use `create_trade` for stock/crypto or `create_options_trade` for options with concrete contracts and quantities. Do not substitute one tool's schema for another.
+1. Use `create_trade` for stock, crypto, or outright futures orders, or `create_options_trade` for options with concrete contracts and quantities. Do not substitute one tool's schema for another.
 2. Creation can submit immediately under account auto-execution settings. If creation could submit, obtain approval for the exact order before that call. Inspect the returned status and show the actual account, order details, and estimated cost or credit. Do not describe creation as universally harmless or change the user's execution settings.
 3. For a returned draft, wait for the user to explicitly approve that exact reviewed order, then call `execute_trade` with its returned trade ID. An instruction to prepare or review an order is not approval to execute it. If material details change, obtain approval for the changed order.
 4. Report the returned status accurately. Submitted or accepted does not mean filled. If a submitting call times out or returns an uncertain result, inspect order history before attempting another submission.
